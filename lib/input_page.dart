@@ -1,6 +1,7 @@
 import 'package:bmi_calculator/constants.dart';
 import 'package:bmi_calculator/icon_content.dart';
 import 'package:bmi_calculator/reusable_card.dart';
+import 'package:bmi_calculator/round_icon_button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -16,6 +17,8 @@ class InputPage extends StatefulWidget {
 class _InputPageState extends State<InputPage> {
   Gender? selectedGender;
   int height = 180;
+  int weight = 60;
+  int age = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -89,12 +92,14 @@ class _InputPageState extends State<InputPage> {
                       ),
                       SliderTheme(
                         data: SliderTheme.of(context).copyWith(
-                          inactiveTrackColor: Color(0xFF8D8E98),
+                          inactiveTrackColor: kInactiveSliderColour,
                           activeTrackColor: Colors.white,
-                          thumbColor: Color(0xFFEB1555),
-                          overlayColor: Color(0x29EB1555),
-                          thumbShape: RoundSliderThumbShape(enabledThumbRadius: 15.0),
-                          overlayShape:  RoundSliderOverlayShape(overlayRadius: 30.0),
+                          thumbColor: kThumbColour,
+                          overlayColor: kThumbOverlayColour,
+                          thumbShape:
+                              RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                          overlayShape:
+                              RoundSliderOverlayShape(overlayRadius: 30.0),
                         ),
                         child: Slider(
                           value: height.toDouble(),
@@ -121,18 +126,108 @@ class _InputPageState extends State<InputPage> {
                 Expanded(
                   child: ReusableCard(
                     containerColor: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "WEIGHT",
+                          style: kLabelTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              weight.toString(),
+                              style: kIconSizeTextStyle,
+                            ),
+                            Text(
+                              'kg',
+                              style: kLabelTextStyle,
+                            )
+                          ],
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              onPressedAction: () {
+                                setState(() {
+                                  if (weight > 2) {
+                                    weight--;
+                                  }
+                                });
+                              },
+                              icon: FontAwesomeIcons.minus,
+                            ),
+                            SizedBox(width: 10,),
+                            RoundIconButton(
+                              onPressedAction: () {
+                                setState(() {
+                                  if (weight < 500) {
+                                    weight++;
+                                  }
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Expanded(
                   child: ReusableCard(
                     containerColor: kActiveCardColour,
+                    cardChild: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "AGE",
+                          style: kLabelTextStyle,
+                        ),
+                        Text(
+                          age.toString(),
+                          style: kIconSizeTextStyle,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            RoundIconButton(
+                              onPressedAction: () {
+                                setState(() {
+                                  if (age > 2) {
+                                    age--;
+                                  }
+                                });
+                              },
+                              icon: FontAwesomeIcons.minus,
+                            ),
+                            SizedBox(width: 10,),
+                            RoundIconButton(
+                              onPressedAction: () {
+                                setState(() {
+                                  if (age < 120) {
+                                    age++;
+                                  }
+                                });
+                              },
+                              icon: FontAwesomeIcons.plus,
+                            )
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
           ),
           Container(
-            color: kBottomContainerColor,
+            color: kBottomContainerColour,
             margin: EdgeInsets.only(top: 10.0),
             width: double.infinity,
             height: kBottomContainerHeight,
